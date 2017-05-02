@@ -16,7 +16,7 @@ export class NavBarComponent implements OnInit {
   logout() {
   	this.loginService.logout().subscribe(
   		res => {
-  			location.reload();
+  			location.reload(); 
   		},
   		err => {
   			console.log(err);
