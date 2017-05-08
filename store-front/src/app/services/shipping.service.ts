@@ -1,36 +1,46 @@
 import { Injectable } from '@angular/core';
 import { AppConst } from '../constants/app-const';
 import { Http, Headers } from '@angular/http';
-import { UserPayment } from '../models/user-payment';
+import { UserShipping } from '../models/user-shipping';
 
 @Injectable()
-export class PaymentService {
-  private serverPath: string = AppConst.serverPath;
+export class ShippingService {
 
-  constructor(private http : Http) { }
+private serverPath:string=AppConst.serverPath;
+  constructor(private http:Http) { }
 
-  newPayment(payment: UserPayment) {
-  	let url = this.serverPath+"/payment/add";
-
-  	let tokenHeader = new Headers({
-  		'Content-Type' : 'application/json',
-  		'x-auth-token' : localStorage.getItem("xAuthToken")
-  	});
-  	return this.http.post(url, JSON.stringify(payment), {headers: tokenHeader});
-  }
-
-  getUserPaymentList() {
-  	let url = this.serverPath+"/payment/getUserPaymentList";
+  newShipping(shipping: UserShipping) {
+  	let url = this.serverPath+"/shipping/add";
 
   	let tokenHeader = new Headers({
   		'Content-Type' : 'application/json',
   		'x-auth-token' : localStorage.getItem("xAuthToken")
   	});
-  	return this.http.get(url,  {headers: tokenHeader});
+  	return this.http.post(url, JSON.stringify(shipping), {headers: tokenHeader});
   }
 
-  removePayment(id: number) {
-  	let url = this.serverPath+"/payment/remove";
+  getUserShippingList() {
+  	let url = this.serverPath+"/shipping/getUserShippingList";
+
+  	let tokenHeader = new Headers({
+  		'Content-Type' : 'application/json',
+  		'x-auth-token' : localStorage.getItem("xAuthToken")
+  	});
+  	return this.http.get(url,{headers: tokenHeader});
+  }
+
+  removeShipping(id: number) {
+  	let url = this.serverPath+"/shipping/remove";
+
+  	let tokenHeader = new Headers({
+  		'Content-Type' : 'application/json',
+  		'x-auth-token' : localStorage.getItem("xAuthToken")
+  	});
+  	return this.http.post(url, id, {headers: tokenHeader});
+  }
+
+  setDefaultShipping (id: number) {
+  	let url = this.serverPath+"/shipping/setDefault";
 
   	let tokenHeader = new Headers({
   		'Content-Type' : 'application/json',
@@ -39,13 +49,5 @@ export class PaymentService {
   	return this.http.post(url, id, {headers: tokenHeader});
   }
 
-  setDefaultPayment (id: number) {
-  	let url = this.serverPath+"/payment/setDefault";
 
-  	let tokenHeader = new Headers({
-  		'Content-Type' : 'application/json',
-  		'x-auth-token' : localStorage.getItem("xAuthToken")
-  	});
-  	return this.http.post(url, id, {headers: tokenHeader});
-  }
 }

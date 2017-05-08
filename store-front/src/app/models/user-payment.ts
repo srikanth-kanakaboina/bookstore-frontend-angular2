@@ -6,6 +6,7 @@ export class UserPayment {
   public cardName:string;
   public cardNumber :string;
   public expiryMonth:string;
+  public expiryYear: string;
   public cvc:number;
   public holderNumber:string;
   public defaultPayment:boolean;
